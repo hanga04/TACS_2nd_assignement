@@ -1,4 +1,4 @@
-# Two-door airlock: a worked example
+# worked example
 
 Prepared for the master's course Advanced Software Construction Techniques
 (TACS), Faculty of Engineering of the University of Porto (FEUP), 2026/27, to
@@ -7,17 +7,6 @@ second assignment: behavioural models (state machines, sequence diagrams and
 temporal properties) turned into concurrent code by AI agents, and checked by
 timed scenario tests.
 
-It is a two-door airlock built as three active
-objects, each on its own thread. Two doors and an interlocker, which holds the
-token that gives a door the right to open, exchange messages over bounded
-queues. Each door's hardware is faked by a thread of its own, and the tests
-play the users. It is not in the project pool. Use it to see what each
-deliverable looks like, then build your own.
-
-There is one specification and two implementations of it, in Rust and in
-Java, to show that the specification and the test plan do not depend on the
-language. Your project needs only one language: yours will look like this
-folder with one of `rust/` or `java/`, or with everything at the top.
 
 | | |
 |---|---|
@@ -35,28 +24,12 @@ folder with one of `rust/` or `java/`, or with everything at the top.
 The tests compare each run's log with its expected log using the provided
 checker, [tracecheck/](tracecheck/README.md), so they need Python 3.8 or later.
 
-```
-cd rust
-cargo test        # every check, about 30 s; each scenario's log goes to target/scenarios/
-
-cd java
-mvn test          # the same
-```
 
 ## How it works
 
-- **Each component is an active object.** Its thread gets its queues when it
-  starts, receives messages, asks its decision function what to do, and does
-  it. The decision function only decides, so it can be reviewed against its
-  state machine, line by line.
-- **Every message is logged** with its time, including those between the doors
-  and the interlocker. Each test runs a scenario and compares its log with
-  an expected log, written from the specification. Both versions print the
-  log in the same format, so the same expected logs check both.
-- **The tests run the real threads,** 10 times faster than real time. Threads
-  are never exactly on time, so every scenario keeps its events well apart,
-  and where they do happen together, the expected log lists every order
-  allowed.
+- **Each component is an active object.** 
+- **Every message is logged** 
+- **The tests run the real threads,**
 
 ## Using this example
 
